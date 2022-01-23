@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfilesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,22 +24,24 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/add', function () {
-    return view('post/add');
-});
+Route::resource('profile', ProfilesController::class);
 
-Route::get('/posts', function () {
-    return view('post/posts');
-});
+// Route::get('/add', function () {
+//     return view('post/add');
+// });
 
-Route::get('/search', function () {
-    return view('search');
-});
+// Route::get('/posts', function () {
+//     return view('post/posts');
+// });
 
-Route::get('/edit', function () {
-    return view('edit');
-});
+// Route::get('/search', function () {
+//     return view('search');
+// });
 
-Route::get('/comment', function () {
-    return view('post/comment');
-});
+// Route::get('/edit', function () {
+//     return view('edit');
+// });
+
+// Route::get('/comment', function () {
+//     return view('post/comment');
+// });

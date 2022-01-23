@@ -65,6 +65,19 @@
                                 @enderror
                             </div>
                         </div>
+                        
+                        <div class="row mb-3">
+                            <label for="born" class="col-md-4 col-form-label text-md-end">{{ __('Birthday') }}</label>
+                            <div class="col-md-6">
+                                <input id="born" type="date" class="form-date form-control-date @error('born') is-invalid @enderror" name="born" value="{{ old('born') }}" required autocomplete="born">
+
+                                @error('born')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
