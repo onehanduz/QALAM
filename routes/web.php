@@ -24,7 +24,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('profile', ProfilesController::class);
+Route::get('/profile', [ProfilesController::class, 'index']);
+Route::get('/edit', [ProfilesController::class, 'edit']);
+Route::get('/change', [ProfilesController::class, 'change']);
+Route::put('/update', [ProfilesController::class, 'update']);
+Route::put('/change/password', [ProfilesController::class, 'changepassword'])->name('change');
 
 // Route::get('/add', function () {
 //     return view('post/add');
