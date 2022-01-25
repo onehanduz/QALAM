@@ -11,8 +11,8 @@
                 <div><h1>{{ $user->first_name }} {{ $user->last_name }}</h1></div>
                 <div class="mt-1"><a href="#" class="p-1"><button type="button" class="btn btn-primary">Follow</button></a></div>
             </div>
-            <div>Username: {{$user->username}}</div>
-            <div>Birthday(y/m/d): {{$user->born}}</div>
+            <div>Username: {{ $user->username }}</div>
+            <div>Birthday(y/m/d): {{ $user->born }}</div>
             <div class="d-flex">
                 <div class="pe-3">post</div>
                 <div class="pe-3">followers</div>
