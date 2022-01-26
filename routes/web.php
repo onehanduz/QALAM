@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\DislikeController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
@@ -44,7 +45,6 @@ Route::get('/p/add', [PostController::class, 'add'])->name('post_add');
 Route::put('/p/store', [PostController::class, 'store'])->name('post_store');
 Route::get('/p/edit/{id}', [PostController::class, 'edit'])->name('post_edit');
 Route::put('/p/update/{id}', [PostController::class, 'update'])->name('post_update');
-Route::get('/p/comment', [PostController::class, 'comments'])->name('post_comments');
 Route::get('/p/show/{id}', [PostController::class, 'show'])->name('post_show');
 
 /**
@@ -59,5 +59,5 @@ Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('com
  * Like dislike follow routes
  */
 Route::put('/like/{id}', [LikeController::class, 'store'])->name('like');
-Route::put('/silike/{id}', [LikeController::class, 'store'])->name('dislike');
+Route::put('/dislike/{id}', [DislikeController::class, 'store'])->name('dislike');
 Route::put('/follow/{id}', [FollowController::class, 'store'])->name('follow');

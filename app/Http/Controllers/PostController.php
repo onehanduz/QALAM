@@ -117,7 +117,7 @@ class PostController extends Controller
         ]);
         $post = Post::findOrFail($id);
         $auth = Auth::user()->id;
-        if ($auth == $post->id) {
+        if ($auth == $post->user->id) {
 
             if ($request->file('image')) {
                 $time = time();

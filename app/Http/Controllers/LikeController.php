@@ -24,7 +24,9 @@ class LikeController extends Controller
             return redirect()->route('post_show', [$post]);
         }else{
             $dislike = Dislike::where('post_id', $post)->where('user_id',$auth)->first();
-            $dislike->delete();
+            if ($dislike) {
+                $dislike->delete();
+            }
             Like::create([
                 'post_id' => $post,
                 'user_id' => $auth,

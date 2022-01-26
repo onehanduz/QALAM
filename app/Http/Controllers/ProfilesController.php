@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;    
 class ProfilesController extends Controller
 {
@@ -32,7 +35,9 @@ class ProfilesController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('profile.show', compact('user'));
+        $auth = Auth::user()->id;
+        $check = Follow::where('user_id', $user->id)->where('profile_id', $auth)->first();
+        return view('profile.show', compact('user', 'check'));
     }
 
     /**
@@ -110,4 +115,6 @@ class ProfilesController extends Controller
         }
     }
 
-}
+
+
+  }
