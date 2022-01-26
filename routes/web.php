@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfilesController;
 use Illuminate\Support\Facades\Auth;
@@ -52,3 +54,10 @@ Route::put('/p/{id}/comment', [CommentController::class, 'store'])->name('commen
 Route::get('/comment/{id}', [CommentController::class, 'edit'])->name('comment_edit');
 Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comment_update');
 Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment_delete');
+
+/**
+ * Like dislike follow routes
+ */
+Route::put('/like/{id}', [LikeController::class, 'store'])->name('like');
+Route::put('/silike/{id}', [LikeController::class, 'store'])->name('dislike');
+Route::put('/follow/{id}', [FollowController::class, 'store'])->name('follow');

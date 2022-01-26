@@ -55,4 +55,18 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'user_id');
+    }
+    public function dislikes()
+    {
+        return $this->hasMany(Dislike::class, 'user_id');
+    }
+
+    public function follow()
+    {
+        return $this->hasMany(Follow::class, 'user_id');
+    }
+
 }

@@ -8,8 +8,15 @@
             <div class="card-body">
                 <p class="card-text">{{ $post->text }}</p>
                 <div class="d-flex">
-                    <div class="mt-2"><p>1 liked</p></div>
-                    <div class="ps-2"><a href="#"><button type="button" class="btn btn-outline-danger">Like</button></a></div>
+                    <div class="mt-2"><p>{{ $post->likes->count() }}</p></div>
+                    
+                    <form action="{{ route('like', ['id'=>$post->id]) }}" method="POST">
+                        @method('PUT')
+                        @csrf
+                        <div class="ps-2">
+                            <button type="submit" class="btn btn-outline-danger">Like</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="d-flex">
                     <div><a href="{{ route('show', ['id'=>$post->user->id]) }}">{{ $post->user->username }}</a></div>
