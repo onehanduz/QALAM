@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfilesController;
 use Illuminate\Support\Facades\Auth;
@@ -44,8 +45,10 @@ Route::put('/p/update/{id}', [PostController::class, 'update'])->name('post_upda
 Route::get('/p/comment', [PostController::class, 'comments'])->name('post_comments');
 Route::get('/p/show/{id}', [PostController::class, 'show'])->name('post_show');
 
-
-Route::get('comment', function()
-{
-    return view('post.comment');
-});
+/**
+ * Comment routes
+ */
+Route::put('/p/{id}/comment', [CommentController::class, 'store'])->name('comment_store');
+Route::get('/comment/{id}', [CommentController::class, 'edit'])->name('comment_edit');
+Route::put('/comment/{id}', [CommentController::class, 'update'])->name('comment_update');
+Route::delete('/comment/{id}', [CommentController::class, 'destroy'])->name('comment_delete');

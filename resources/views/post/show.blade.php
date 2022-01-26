@@ -21,7 +21,7 @@
     </div>
 
     <div class="mt-3 mb-3 col-4">
-        <form action="{{ route('post_store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('comment_store', ['id'=>$post->id]) }}" method="post" enctype="multipart/form-data">
           @method('PUT')
           @csrf 
           <div class="mb-3">
@@ -37,17 +37,18 @@
           <button type="submit" class="btn btn-primary">Send</button>
         </form>
     </div>
-
-    <div class="row p-3 mt-1">
-        <div class="card col-4">
-            <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <div class="d-flex">
-                    <div><a href="#">@username</a></div>
-                    <div class="ps-2">date</div>
+    @foreach($post->comments()->get() as $comment)
+        <div class="row p-3 mt-1">
+                <div class="card col-4">
+                    <div class="card-body">
+                        <p class="card-text">{{ $comment->text }}</p>
+                        <div class="d-flex">
+                            <div><a href="{{ route('show', ['id'=>$comment->author->id]) }}">{{ $comment->author->username }}</a></div>
+                            <div class="ps-2">{{$comment->created_at}}</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
         </div>
-    </div>
+    @endforeach
 </div>
 @endsection
