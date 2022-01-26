@@ -37,4 +37,15 @@ Route::put('/change/password', [ProfilesController::class, 'change_password'])->
  * Post routes
  */
 Route::get('/p', [PostController::class, 'index'])->name('post_index');
+Route::get('/p/add', [PostController::class, 'add'])->name('post_add');
+Route::put('/p/store', [PostController::class, 'store'])->name('post_store');
+Route::get('/p/edit/{id}', [PostController::class, 'edit'])->name('post_edit');
+Route::put('/p/update/{id}', [PostController::class, 'update'])->name('post_update');
+Route::get('/p/comment', [PostController::class, 'comments'])->name('post_comments');
+Route::get('/p/show/{id}', [PostController::class, 'show'])->name('post_show');
 
+
+Route::get('comment', function()
+{
+    return view('post.comment');
+});

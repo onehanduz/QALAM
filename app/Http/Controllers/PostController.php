@@ -21,8 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::paginate(20);
-        return view('post.posts', compact('post'));
+        $posts = Post::latest()->paginate(20);
+        return view('post.posts', compact('posts'));
     }
 
     /**
@@ -30,9 +30,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function add()
     {
-        //
+        return view('post.add');
     }
 
     /**
@@ -43,7 +43,34 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $data = $request->validate([
+            'text'=>'required',
+            'image' =>'nullable',
+        ]);
+        
+        if ($request->file('image')) {
+            $time = time();
+            $name = $request->file('image')->getClientOriginalName();
+            $imageName = "$time.$name";
+
+            $request->image->move(public_path('storage/posts'), $imageName);
+
+            $image_path = "/storage/posts/$imageName";
+            $auth = Auth::user()->id;
+            Post::create([
+                'text' => $data['text'],
+                'user_id' => $auth,
+                'image' => $image_path,
+            ]);
+        }else{
+            $auth = Auth::user()->id;
+            Post::create([
+                'text' => $data['text'],
+                'user_id' => $auth,
+            ]);
+        }
+        return redirect('/p');
     }
 
     /**
@@ -54,7 +81,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        
+        $post = Post::findOrFail($id);
+        return view('post.show', compact('post'));
     }
 
     /**
@@ -63,9 +91,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($id)
     {
-
+        $auth = Auth::user()->id;
+        $post = Post::findOrFail($id);
+        if ($auth == $post->user_id) {
+            return view('post.edit', compact('post'));
+        }else{
+            return redirect('/p');
+        }
     }
 
     /**
@@ -75,9 +109,40 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        $data = $request->validate([
+            'text'=>'required',
+            'image' =>'nullable',
+        ]);
+        $post = Post::findOrFail($id);
+        $auth = Auth::user()->id;
+        if ($auth == $post->id) {
 
+            if ($request->file('image')) {
+                $time = time();
+                $name = $request->file('image')->getClientOriginalName();
+                $imageName = "$time.$name";
+    
+                $request->image->move(public_path('storage/posts'), $imageName);
+    
+                $image_path = "/storage/posts/$imageName";
+                
+                $post->update([
+                    'text' => $data['text'],
+                    'user_id' => $auth,
+                    'image' => $image_path,
+                ]);
+            }else{
+                $post->update([
+                    'text' => $data['text'],
+                    'user_id' => $auth,
+                ]);
+            }
+            return redirect("/p/show/$post->id");
+        }else{
+            return redirect('/p');
+        }
     }    
     /**
      * Remove the specified resource from storage.

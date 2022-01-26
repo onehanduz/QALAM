@@ -3,12 +3,12 @@
 @section('content')
 <div class="container">
   <div class="mt-3">
-  <form action="{{ route('post_store') }}" method="post" enctype="multipart/form-data">
+  <form action="{{ route('post_update',['id'=>$post->id]) }}" method="post" enctype="multipart/form-data">
     @method('PUT')
     @csrf 
     <div class="mb-3">
       <label for="text" class="form-label">Text*</label>
-      <input type="text" class="form-control @error('text') is-invalid @enderror" id="text" name="text">
+      <input type="text" class="form-control @error('text') is-invalid @enderror" id="text" name="text" value="{{ $post->text }}">
 
       @error('text')
       <span class="invalid-feedback" role="alert">
