@@ -36,6 +36,8 @@ Route::get('/show/{id}', [ProfilesController::class, 'show'])->name('show');
 Route::get('/change', [ProfilesController::class, 'change'])->name('change');
 Route::put('/update', [ProfilesController::class, 'update'])->name('update');
 Route::put('/change/password', [ProfilesController::class, 'change_password'])->name('change_password');
+Route::get('/search', [ProfilesController::class, 'search'])->name('search');
+Route::put('/search', [ProfilesController::class, 'search_put'])->name('search_put');
 
 /**
  * Post routes

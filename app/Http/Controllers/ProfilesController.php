@@ -116,5 +116,16 @@ class ProfilesController extends Controller
     }
 
 
-
+    public function search()
+    {
+        return view('profile.search.index'); 
+    }
+    public function search_put(Request $request)
+    {
+        $data = $request->validate([
+            'username'=> 'required',
+        ]);
+        $users = User::where('username', 'LIKE', '%'.$data['username'].'%')->get();
+        return view('profile.search.users',compact('users')); 
+    }
   }

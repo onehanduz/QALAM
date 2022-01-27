@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row p-3 mt-1">
         <div class="card col-5">
-             @if($post->image)
+            @if($post->image)
             <img src="../../{{ $post->image }}" class="w-100">
             @endif
             <div class="card-body">
@@ -34,6 +34,11 @@
                     <div class="ps-2"><a href="{{route('post_show', ['id' => $post->id]) }}">comments</a></div>
                     <div class="ps-2">{{ $post->created_at }}</div>
                 </div>
+                @if (Auth::user()->id == $post->user->id )
+                <div class="d-flex">
+                    <div><a href="{{ route('post_edit', ['id'=>$post->id]) }}">Edit</a></div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -64,6 +69,20 @@
                             <div><a href="{{ route('show', ['id'=>$comment->author->id]) }}">{{ $comment->author->username }}</a></div>
                             <div class="ps-2">{{$comment->created_at}}</div>
                         </div>
+                        @if (Auth::user()->id == $comment->author->id )
+                        <div class="d-flex">
+                        <form action="{{ route('comment_edit', ['id'=>$comment->id]) }}" method="GET">
+                                @method('GET')
+                                @csrf
+                                <div><button type="submit" class="btn btn-outline-primary"> Edit</button></div>
+                            </form>
+                            <form action="{{ route('comment_delete', ['id'=>$comment->id]) }}" method="post" class="ps-3">
+                                @method('delete')
+                                @csrf
+                                <div><button type="submit" class="btn btn-outline-danger"> Delete</button></div>
+                            </form>
+                        </div>
+                        @endif
                     </div>
                 </div>
         </div>

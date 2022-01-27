@@ -40,6 +40,9 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('post_add') }}">{{ __('Add post') }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('post_index') }}">{{ __('Posts') }}</a>
                         </li>
                         <li class="nav-item">
